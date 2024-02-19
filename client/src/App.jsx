@@ -6,8 +6,12 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
+import Header from './components/header';
+
 
 const App = () => {
+  // const location = useLocation();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -22,5 +26,5 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
 
