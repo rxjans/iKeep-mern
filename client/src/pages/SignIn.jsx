@@ -1,10 +1,14 @@
 import React from 'react'
+import Header from '../components/header';
 
 function SignIn() {
   return (
-    <div>
-      asd
-    </div>
+    <>
+    <Header />
+      <div>
+        asd
+      </div>
+    </>
   )
 }
 

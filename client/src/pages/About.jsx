@@ -1,10 +1,14 @@
 import React from 'react'
+import Header from '../components/header';
 
 function About() {
   return (
-    <div>
-      About
-    </div>
+    <>
+      <Header />
+      <div>
+        About
+      </div>
+    </>
   )
 }
 
