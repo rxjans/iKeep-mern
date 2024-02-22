@@ -1,9 +1,15 @@
 import React from 'react';
 import logo from '../assets/logo.png';
+import {motion} from 'framer-motion';
+import {fadeIn} from '../variants.js';
 
 const Home = () => {
   return (
-    <div className="h-screen bg-[url('./assets/london.jpg')] bg-cover">
+    <motion.div
+        initial={{opacity:0}}
+        animate={{opacity:1}}
+        exit={{opacity:0}}
+         className="h-screen bg-[url('./assets/london.jpg')] bg-cover">
         <div className='flex h-screen'>
         {/* left division */}
             <div className=' flex bg-white bg-opacity-60 justify-center items-center w-[0px] lg:flex-1'>
@@ -26,7 +32,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
 
