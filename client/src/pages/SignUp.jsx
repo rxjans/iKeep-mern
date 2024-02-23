@@ -33,7 +33,7 @@ function SignUp() {
         return setErrorMessage(data.message);
       }
       if(res.ok){
-        navigate('/signin');
+        navigate('/sign-in');
       }
     }
     catch(error){

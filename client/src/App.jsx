@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
 import Header from './components/header';
-
+// import Footer from './components/footer.jsx';
 
 const App = () => {
   // const location = useLocation();
@@ -22,6 +22,7 @@ const App = () => {
         <Route path="/projects" element={<Projects />} />
         <Route path='/about' element={<About />} />
       </Routes>
+      {/* <Footer /> */}
     </BrowserRouter>
   )
 }
