@@ -12,7 +12,6 @@ iKeep is an elegant and feature-rich blogging platform under active development.
 
 ## Installation
 - Clone the repository:
-
 - git clone https://github.com/rxjans/iKeep-mern
 
 ## Install dependencies:
