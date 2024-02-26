@@ -4,9 +4,11 @@ import React from 'react';
 import logo1 from '../assets/logo1.png';
 import {AiOutlineSearch} from 'react-icons/ai';
 import {FaMoon} from 'react-icons/fa';
+import {useSelector} from 'react-redux';
 
 function Header() {
   const path = useLocation().pathname;
+  const {currentUser} = useSelector(state => state.user);
   return (
     <nav className='fixed top-0 w-full bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 border-b-2'>
       <div className='mx-auto flex flex-wrap items-center justify-between container'>
@@ -27,11 +29,33 @@ function Header() {
         </Button>
         <div className='flex gap-4 md:order-2'>
         <button type="button" className="group items-center justify-center p-0.5 text-center font-medium relative focus:z-10 focus:outline-none border-[1px] text-white hover:bg-gray-200 focus:ring-2 w-12 h-10 rounded-full hidden sm:inline"><span className="flex items-center transition-all duration-200 rounded-full text-sm px-4 py-2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" className="text-black text-center" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z" outline></path></svg></span></button>
-          <div className='bg-gradient-to-br from-purple-600 to-cyan-500 rounded-full'>
-              <Link to='sign-in'>
-                <button type="button" className="group rounded-full flex m-0.5 text-black items-center justify-center text-center font-medium relative focus:z-10 focus:outline-none hover:text-white bg-gradient-to-br from-white to-white hover:from-purple-600 hover:to-cyan-500  dark:focus:ring-cyan-800 focus:ring-2"><span className="flex items-center transition-all duration-200 rounded-md text-sm px-4 py-2">Sign In</span></button>
-              </Link>
-          </div>
+          
+              
+              {
+                currentUser ? 
+              ( <div className='group cursor-pointer relative'>
+                  <img className='w-[40px] border-2 rounded-full' src={currentUser.profilePicture} />
+                  <div className='flex flex-col py-2 px-2 absolute right-4 top-10 bg-white rounded-lg group-hover:visible invisible w-[150px] md:w-[250px] h-[140px] border-2 text-center'>
+                    <span className='text-sm text-gray-900'>@{currentUser.username}</span>
+                    <span className='text-sm font-semibold truncate'>{currentUser.email}</span>
+                    <Link className='mt-2 border-2 border-blue-500 bg-blue-500 font-semibold focus:outline-none focus:ring focus:ring-blue-300 hover:bg-blue-600 text-white rounded-full' to="/dashboard">
+                      Profile
+                    </Link>
+                    <Link className='hover:text-blue-500 py-[1.5px] hover:py-[2px] hover:bg-white mt-2 border-2 text-white hover:border-blue-500 bg-blue-500  transition delay-55 ease-in-out duration-200  font-semibold rounded-full' to="/dashboard">
+                      Logout
+                    </Link>
+                  </div>
+                </div>)
+                : 
+                (
+                <div className='bg-gradient-to-br from-purple-600 to-cyan-500 rounded-full'>  
+                  <Link to='sign-in'>
+                  <button type="button" className="group rounded-full flex m-0.5 text-black items-center justify-center text-center font-medium relative focus:z-10 focus:outline-none hover:text-white bg-gradient-to-br from-white to-white hover:from-purple-600 hover:to-cyan-500  dark:focus:ring-cyan-800 focus:ring-2"><span className="flex items-center transition-all duration-200 rounded-md text-sm px-4 py-2">Sign In</span></button>
+                  </Link>
+                </div>)
+              }
+
+          
           <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
           <span className="sr-only">Open main menu</span>
           <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
