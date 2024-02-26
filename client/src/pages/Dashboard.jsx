@@ -4,7 +4,7 @@ function Dashboard() {
   return (
     <>
     <Header />
-      <div>
+      <div className=' pt-20'>
         Dashboard
       </div>
     </>
