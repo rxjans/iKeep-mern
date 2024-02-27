@@ -22,14 +22,16 @@ function Dashboard() {
     <>
     <Header />
       {/* sidebar */}
-      <div>
-        <DashSidebar />
-      </div>
-      {/* profile */}
-      <div>
-        {
-          tab === 'profile' && <DashProfile />
-        }
+      <div className='min-h-screen flex flex-col lg:flex-row'>
+        <div>
+          <DashSidebar />
+        </div>
+        {/* profile */}
+        <div className='w-full'>
+          {
+            tab === 'profile' && <DashProfile />
+          }
+        </div>
       </div>
     </>
   )

@@ -23,7 +23,7 @@ function DashSidebar() {
                 <h4 class="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200">{currentUser.username}</h4>
                 <p class="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400 ">{currentUser.email.slice(0,19)}....</p>
             </div>
-
+            <hr className='mt-8'></hr>
             <div class="flex flex-col justify-between flex-1 mt-6">
                 <nav>
                     <button onClick={() => handleButtonClick('profile')} className={`flex items-center w-full lg:w-[220px] px-4 py-2 text-gray-600  rounded-lg  dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600/20 dark:hover:text-gray-200 hover:text-gray-700 ${activeButton === 'profile' && 'dark:bg-gray-600/20 dark:text-white bg-gray-100'}`}>
