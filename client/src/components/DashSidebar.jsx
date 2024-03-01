@@ -13,7 +13,7 @@ function DashSidebar() {
 
 
   return (
-    <aside class="lg:flex lg:flex-col lg:w-64 w-screen lg:h-screen px-4 py-8 overflow-y-auto border-b-2 lg:border-r lg:rtl:border-r-0 lg:rtl:border-l dark:border-[rgb(35,39,42)] dark:bg-[rgb(35,39,42)]">
+    <aside class="lg:flex lg:flex-col lg:w-64 w-full lg:h-screen px-4 py-8 overflow-y-auto border-b-2 lg:border-r lg:rtl:border-r-0 lg:rtl:border-l dark:border-[rgb(35,39,42)] dark:bg-[rgb(35,39,42)]">
             <a href="#" class="mx-auto">
                 <img class="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
             </a>

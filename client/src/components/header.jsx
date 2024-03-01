@@ -7,7 +7,7 @@ import {FaMoon} from 'react-icons/fa';
 import {useSelector, useDispatch} from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 
-function Header() {
+function Header () {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const {theme} = useSelector(state => state.theme);
@@ -45,7 +45,7 @@ function Header() {
               {
                 currentUser ? 
               ( <div className='group cursor-pointer relative'>
-                  <img className='w-[40px] border-2 dark:border-gray-600 rounded-full' src={currentUser.profilePicture} />
+                  <img className='w-[40px] h-[40px] border-2 dark:border-gray-600 rounded-full' src={currentUser.profilePicture} />
                   <div className='flex flex-col py-2 px-2 absolute right-4 top-10 bg-white rounded-lg group-hover:visible invisible w-[150px] md:w-[250px] h-[140px] border-2 text-center'>
                     <span className='text-sm text-gray-900'>@{currentUser.username}</span>
                     <span className='text-sm font-semibold truncate dark:text-gray-800'>{currentUser.email}</span>

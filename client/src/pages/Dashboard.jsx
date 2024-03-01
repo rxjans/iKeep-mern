@@ -27,7 +27,7 @@ function Dashboard() {
           <DashSidebar />
         </div>
         {/* profile */}
-        <div className='w-full'>
+        <div className='w-full min-h-[700px] lg:min-h-screen'>
           {
             tab === 'profile' && <DashProfile />
           }

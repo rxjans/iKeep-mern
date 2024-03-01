@@ -39,9 +39,12 @@ export const updateUser = async(req, res, next)=> {
                 password: req.body.password
             }
         }, {new: true});
+        
         const{password, ...rest} = updatedUser._doc;
+        
         res.json(rest);
-    } catch (error) {
+    }
+     catch (error) {
         next(error);
     }
 }
