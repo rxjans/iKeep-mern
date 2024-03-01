@@ -173,7 +173,7 @@ function DashProfile() {
             <span className='cursor-pointer hover:font-semibold'>Delete Account</span>
             <span className='cursor-pointer hover:font-semibold'>Sign Out</span>
         </div>
-        <article>
+        <article className='flex justify-center items-center'>
             {
               updateError && 
               <motion.div variants={fadeIn('left', 0.3)}
