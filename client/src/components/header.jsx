@@ -1,7 +1,7 @@
 import { Button, Navbar, TextInput } from 'flowbite-react'
 import {Link, useLocation} from 'react-router-dom';
 import React from 'react';
-import logo1 from '../assets/logo1.png';
+import logo1 from '../assets/logo3.png';
 import {AiOutlineSearch} from 'react-icons/ai';
 import {FaMoon} from 'react-icons/fa';
 import {useSelector, useDispatch} from 'react-redux';

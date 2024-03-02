@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import logo1 from '../assets/logo1.png';
+import logo1 from '../assets/logo2.png';
 import {motion} from 'framer-motion';
 import {fadeIn} from '../variants.js';
 import OAuth from '../components/OAuth.jsx';

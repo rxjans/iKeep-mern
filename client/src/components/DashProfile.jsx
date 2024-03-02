@@ -6,11 +6,11 @@ import {motion} from 'framer-motion';
 import { fadeIn } from '../variants';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { updateStart, updateFailure, updateSuccess } from '../redux/user/userSlice';
-
+import { updateStart, updateFailure, updateSuccess, deleteStart, deleteFailure, deleteSuccess } from '../redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 function DashProfile() {
-    const {currentUser} = useSelector(state=> state.user);
+    const {currentUser, error} = useSelector(state=> state.user);
     const [buttonBool, setButttonBool] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -18,8 +18,10 @@ function DashProfile() {
     const [imageUploadError, setImageUploadError] = useState(null);
     const [updateError, setUpdateError] = useState(null);
     const [updateProfileSuccess, setUpdateProfileSuccess] = useState(null);
+    const [modals, setModals] = useState(false);
     const [formData, setFormData] = useState({});
     const filePickerRef = useRef();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleImageChange = (e) => {
       const file = e.target.files[0];
@@ -106,6 +108,26 @@ function DashProfile() {
       }
     }
 
+    const handleDelete = async()=>{
+      setModals(false);
+      try {
+        dispatch(deleteStart());
+        const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+          method: 'DELETE'
+        });
+        const data = await res.json();
+        if(res.ok){
+          dispatch(deleteSuccess(data));
+          navigate('/');
+        }
+        if(!res.ok){
+          dispatch(deleteFailure(data.message));
+        }
+      } catch (error) {
+        dispatch(deleteFailure(error.message));
+      }
+    }
+
   return (
     <div className='lg:pt-20 max-w-xl p-3 mx-auto w-full'>
         <h1 className='my-7 text-center font-semibold text-3xl mr-[8px]'>
@@ -170,7 +192,7 @@ function DashProfile() {
             </div>
         </form>
         <div className='text-red-500 dark:text-gray-200 flex justify-between underline underline-offset-6'>
-            <span className='cursor-pointer hover:font-semibold'>Delete Account</span>
+            <span onClick={()=> setModals(true)} className='cursor-pointer hover:font-semibold'>Delete Account</span>
             <span className='cursor-pointer hover:font-semibold'>Sign Out</span>
         </div>
         <article className='flex justify-center items-center'>
@@ -197,6 +219,52 @@ function DashProfile() {
                   {updateProfileSuccess}
                   </div>
                   </motion.div>
+            }
+            {
+              error && 
+              <motion.div variants={fadeIn('left', 0.3)}
+                  initial='hidden'
+                  whileInView={'show'}
+                  viewport={{once: false, amount: 0.3}}   
+                  className='ml-2'>
+                  <div className='w-[350px] lg:w-[550px] text-center font-semibold dark:text-red-500/80 border border-red-600 bg-red-800/20 text-red-600 py-1 dark:border-none dark:bg-black/40 p-2 text-[13px] mt-6 rounded-full'>
+                  {error}
+                  </div>
+                  </motion.div>
+            }
+            {
+              modals && 
+              <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+              
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+                  <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                      
+                      <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div className="bg-white dark:bg-[rgb(35,39,42)] px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                          <div className="sm:flex sm:items-start">
+                            <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
+                              <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                              </svg>
+                            </div>
+                            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                              <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-200" id="modal-title">Deactivate account</h3>
+                              <div className="mt-2">
+                                <p className="text-sm dark:text-gray-400 text-gray-500">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="dark:bg-[rgb(35,39,42)] px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                          <button onClick={handleDelete} type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 dark:bg-red-800/90 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 dark:hover:bg-red-600/50 sm:ml-3 sm:w-auto">Deactivate</button>
+                          <button onClick={()=> setModals(false)} type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-gray-400 dark:text-gray-900 hover:dark:bg-gray-500 hover:bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  sm:mt-0 sm:w-auto">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
             }
         </article>
     </div>
