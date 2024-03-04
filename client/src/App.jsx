@@ -9,6 +9,8 @@ import Dashboard from './pages/Dashboard';
 import Header from './components/header';
 // import Footer from './components/footer.jsx';
 import PrivateRoute from './components/PrivateRoute';
+import AdminPostPrivateRoute from './components/AdminPostPrivateRoute';
+import CreatePost from './pages/CreatePost';
 
 const App = () => {
   // const location = useLocation();
@@ -21,6 +23,9 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<AdminPostPrivateRoute />}>
+          <Route path="/create-post" element={<CreatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
         <Route path='/about' element={<About />} />

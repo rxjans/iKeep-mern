@@ -6,7 +6,13 @@ export default {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'site' : 'url(./assets/autumn.jpg)',
+        'sea' : 'url(./assets/london.jpg)',
+        'gif' : 'url(./assets/gif.gif)',
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin')

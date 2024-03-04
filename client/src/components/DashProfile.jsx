@@ -7,7 +7,7 @@ import { fadeIn } from '../variants';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { updateStart, updateFailure, updateSuccess, deleteStart, deleteFailure, deleteSuccess, signoutSuccess } from '../redux/user/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function DashProfile() {
     const {currentUser, error} = useSelector(state=> state.user);
@@ -201,10 +201,19 @@ function DashProfile() {
                           <label className='dark:text-gray-200'>Password</label>
                           <input onChange={handleChange} autoComplete='off' className="block lg:w-[550px] w-[350px] h-[35px] border mt-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900  focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder-gray-400 dark:focus:border-gray-500 dark:focus:ring-gray-500 p-2.5 text-sm pr-10 rounded-lg" type="password" id='password' placeholder=" New Password..." />
                         </article> 
-                        <article>
+                        <article className='flex flex-col gap-y-2'>
                             <button onClick={()=> console.log('clicked')} type='submit' disabled={buttonBool} class={`inline-flex items-center justify-center h-8 w-[350px] lg:w-[550px] px-10 py-0 text-sm font-semibold text-center bg-sky-600 text-white dark:bg-transparent dark:text-gray-200 no-underline align-middle transition duration-200 ease-in dark:border-2 hover:border-2 dark:border-gray-600 border-gray-300 border-b border-solid rounded-full cursor-pointer select-none hover:bg-transparent dark:hover:text-white dark:hover:border-white hover:border-sky-600 hover:text-sky-600 ${buttonBool && 'bg-opacity-20 dark:text-opacity-15 dark:border-opacity-20 dark:hover:border-white/5 dark:hover:text-white/20'} focus:shadow-xs focus:no-underline`}>
                                 UPDATE
                             </button>  
+                            {
+                              currentUser.isAdmin && (
+                                <Link to='/create-post'>
+                                  <button onClick={()=> console.log('clicked')} type='button' disabled={buttonBool} class={`inline-flex items-center justify-center h-8 w-[350px] lg:w-[550px] px-10 py-0 text-sm font-semibold text-center hover:bg-sky-600 hover:text-white dark:bg-sky-600 dark:text-gray-200 no-underline align-middle transition duration-200 ease-in dark:border-2 border-2 dark:border-gray-600 hover:border-sky-100 hover:border-b border-solid rounded-full cursor-pointer select-none bg-transparent dark:hover:text-white dark:hover:border-white border-sky-600 text-sky-600 ${buttonBool && 'bg-opacity-20 dark:text-opacity-15 dark:border-opacity-20 dark:hover:border-white/5 dark:hover:text-white/20'} focus:shadow-xs focus:no-underline`}>
+                                  CREATE A POST
+                                  </button> 
+                                </Link>
+                              )
+                            }
                         </article>       
             </div>
         </form>
