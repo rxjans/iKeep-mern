@@ -55,7 +55,7 @@ function CreatePost() {
   return (
     <>
         <Header />
-            <div className=' flex justify-center items-center overflow-auto bg-[url("https://transparenttextures.com/patterns/crissxcross.png")] h-screen no-scrollbar'>
+            <div className='flex justify-center items-center overflow-auto bg-[url("https://transparenttextures.com/patterns/crissxcross.png")] min-h-screen'>
                 <div className='p-3 formmm w-full md:dark:bg-[rgb(35,39,42)]/70  md:bg-white/70 px-4 max-w-3xl mx-auto md:rounded-2xl mt-16 min-h-[660px] '>
                     <div className='flex flex-row justify-center items-center'>
                         <img className='w-[40px] h-[36px] mr-2' src={newicon} />
