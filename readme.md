@@ -18,6 +18,15 @@ iKeep is an elegant and feature-rich blogging platform under active development.
 
 - npm install
 
+# .env file config
+To make sure the application runs on your platform
+- add .env file to root and client dir
+- add MONGO_URI = "your mongodb"
+- add JWT_SECRET = "keyword_for_encryption"
+
+# FIREBASE AUTHORIZATION
+By default the auth key will fail for authentication, so you need to setup your own firebase storage and authentication. You need to setup the SDK and configuration, head over to /client/src/firebase.js and replace the config with your firebase's config.
+
 ## Usage
 Start the development server:
 - npm run dev (root directory) - starts server
