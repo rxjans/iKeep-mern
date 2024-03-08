@@ -96,3 +96,12 @@ select {
     }
   }
 
+  .no-scrollbar{
+    scrollbar-width: 0;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
