@@ -6,6 +6,7 @@ import {Table} from 'flowbite-react';
 function DashPosts() {
   const {currentUser} = useSelector((state)=>state.user);
   const [userPosts, setUserPosts]= useState([]);
+  const [showMore, setShowMore] = useState(true);
   const navigate = useNavigate();
   useEffect(()=> {
     const fetchPosts = async()=>{
@@ -14,6 +15,9 @@ function DashPosts() {
         const data = await res.json();
         if(res.ok){
           setUserPosts(data.posts);
+          if(data.posts.length < 9){
+            setShowMore(false);
+          }
         }
 
       } catch (error) {
@@ -24,6 +28,22 @@ function DashPosts() {
       fetchPosts();
     }
   },[currentUser._id])
+
+  const handleShowMore = async()=>{
+    const startIndex = userPosts.length;
+    try {
+      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+      const data = await res.json();
+      if(res.ok){
+        setUserPosts([...userPosts, ...data.posts]);
+        if(data.posts.length < 9){
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className='lg:pt-20 p-3 lg:px-4 '>
@@ -89,6 +109,15 @@ function DashPosts() {
                     }
                   </tbody>
                 </table>
+                {
+                  showMore && 
+                  <div className='py-2 text-center'> 
+                    <button onClick={handleShowMore} type='button' class={`inline-flex items-center justify-center h-6 w-18 px-10 py-0 text-sm font-semibold text-center bg-sky-600 text-white dark:bg-transparent dark:text-gray-200 no-underline align-middle transition duration-200 ease-in dark:border-2 hover:border-2 dark:border-gray-600 border-gray-300 border-b border-solid rounded-full cursor-pointer select-none hover:bg-transparent dark:hover:text-white dark:hover:border-white hover:border-sky-600 hover:text-sky-600  focus:shadow-xs focus:no-underline`}>
+                      Show more
+                    </button>  
+                  </div>
+
+                }
             </div>
         </>) 
         : 

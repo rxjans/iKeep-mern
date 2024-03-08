@@ -63,7 +63,7 @@ function DashSidebar() {
                         </svg>
                         <div className='flex flex-row justify-between w-full'>
                           <span class="mx-4 font-medium">Profile</span>
-                          <span className={`${activeButton === 'profile' && 'dark:bg-[rgb(35,39,42)]/100'} dark:bg-gray-600 bg-sky-600 text-gray-200 font-semibold  text-[14px] rounded-lg w-14`}>{currentUser.isAdmin ? "admin" : "user"}</span>
+                          <span className={`${activeButton === 'profile' && 'dark:bg-[rgb(35,39,42)]/100'} dark:bg-gray-600 bg-sky-600 text-white dark:text-gray-200 font-semibold  text-[14px] rounded-lg w-14`}>{currentUser.isAdmin ? "admin" : "user"}</span>
                         </div>
                     </button>
 
