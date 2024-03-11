@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { IoMdLogOut } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
 
 function DashSidebar() {
     const {currentUser} = useSelector(state=>state.user);
@@ -22,6 +23,9 @@ function DashSidebar() {
       }
       else if(tab === 'dashboard?tab=posts'){
         setActiveButton('posts');
+      }
+      else if(tab === 'dashboard?tab=users'){
+        setActiveButton('users')
       }
     }, [location.search])
   
@@ -84,9 +88,16 @@ function DashSidebar() {
                         <span class="mx-4 font-medium">Posts</span>
                       </button> 
                     }
+                    
+                    { currentUser.isAdmin &&
+                      <button onClick={() => handleButtonClick('users')} class={`flex lg:w-[220px] w-full items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600/20 dark:hover:text-gray-200 hover:text-gray-700 ${activeButton === 'users' && 'dark:bg-gray-600/20 dark:text-white bg-gray-200'}`} href="#">
+                        <FaUser className='w-[20px] h-[18px]' />
+                        <span class="mx-4 font-medium">Users</span>
+                      </button> 
+                    }
 
-                    <button onClick={handleSignout} class={`flex lg:w-[220px] w-full items-center px-[10px] py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600/20 dark:hover:text-gray-200 hover:text-gray-700 ${activeButton === 'signout' && 'dark:bg-gray-600/20 dark:text-white bg-gray-100'}`}>
-                        <IoMdLogOut className='w-[30px] h-[22px] ' />
+                    <button onClick={handleSignout} class={`flex lg:w-[220px] w-full items-center px-[14px] py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600/20 dark:hover:text-gray-200 hover:text-gray-700 ${activeButton === 'signout' && 'dark:bg-gray-600/20 dark:text-white bg-gray-100'}`}>
+                        <IoMdLogOut className='w-[21px] h-[22px] ' />
                         <span class="mx-4 font-medium">Sign Out</span>
                     </button>
                 </nav>
