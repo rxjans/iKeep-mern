@@ -56,7 +56,21 @@ function DashUsers() {
     }
 
     const handleDelete = async()=>{
-
+        setShowModals(false);
+        try {
+            const res = await fetch(`/api/user/deleteuser/${currentUser._id}/${userId}`,{
+                method: 'DELETE'
+            });
+            const data = await res.json();
+            if(res.ok){
+                setUsers(users.filter((user)=> userId !== user._id));
+            }
+            if(!res.ok){
+                console.log(data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
   return (

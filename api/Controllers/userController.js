@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/errorHandler.js";
 import User from "../models/userModel.js";
 import bcryptjs from 'bcryptjs';
+import Post from "../models/postModel.js";
 
 export default (req, res)=> {
     res.json({message: 'Api is Working!'})
@@ -99,6 +100,19 @@ export const getusers= async(req, res, next)=>{
         });
 
         res.status(200).json({usersNoPassword, totalUsers, lastMonthUsers});
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deleteUserAdmin = async(req, res, next) => {
+    if(!req.user.isAdmin || req.user.id !== req.params.userId){
+        return next(errorHandler(401, "You are not allowed to delete this user"));
+    }
+    try { 
+       await Post.deleteMany({userId: req.params.userIdToDel});
+       await User.findByIdAndDelete(req.params.userIdToDel);
+       res.status(200).json("User has been deleted") ;
     } catch (error) {
         next(error);
     }

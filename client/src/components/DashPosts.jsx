@@ -18,7 +18,7 @@ function DashPosts() {
         const data = await res.json();
         if(res.ok){
           setUserPosts(data.posts);
-          if(data.totalPosts <= 9){
+          if(data.userTotalPosts <= 9){
             setShowMore(false);
           }
           console.log(data.posts.length);
@@ -40,7 +40,7 @@ function DashPosts() {
       const data = await res.json();
       if(res.ok){
         setUserPosts([...userPosts, ...data.posts]);
-        setTotalPosts(data.totalPosts);
+        setTotalPosts(data.userTotalPosts);
       }
     } catch (error) {
       console.log(error);
