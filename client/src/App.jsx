@@ -11,6 +11,7 @@ import Header from './components/header';
 import PrivateRoute from './components/PrivateRoute';
 import AdminPostPrivateRoute from './components/AdminPostPrivateRoute';
 import CreatePost from './pages/CreatePost';
+import UpdatePost from './pages/UpdatePost';
 
 const App = () => {
   // const location = useLocation();
@@ -26,6 +27,8 @@ const App = () => {
         </Route>
         <Route element={<AdminPostPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:postId" element={<UpdatePost />} />
+
         </Route>
         <Route path="/projects" element={<Projects />} />
         <Route path='/about' element={<About />} />
