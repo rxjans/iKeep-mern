@@ -1,8 +1,9 @@
 import Post from "../models/postModel.js";
+import User from "../models/userModel.js";
 import { errorHandler } from "../utils/errorHandler.js";
 
 export const create = async(req, res, next)=>{
-    if(!req.user.isAdmin ){
+    if(!req.user.isAdmin || !User.findById(req.user.id)){
         return next(errorHandler(403, "User is not authorized"));
     }
     if(!req.body.title || !req.body.content){

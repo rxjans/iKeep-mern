@@ -1,5 +1,5 @@
 import { Button, Navbar, TextInput } from 'flowbite-react'
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useNavigate, useLocation} from 'react-router-dom';
 import React from 'react';
 import logo1 from '../assets/logo3.png';
 import {AiOutlineSearch} from 'react-icons/ai';
@@ -13,7 +13,7 @@ function Header () {
   const dispatch = useDispatch();
   const {theme} = useSelector(state => state.theme);
   const {currentUser} = useSelector(state => state.user);
-
+  const navigate = useNavigate();
   const handleSignout = async()=> {
     try {
       const res = await fetch("/api/user/signout", {
@@ -25,6 +25,7 @@ function Header () {
       }
       else{
         dispatch(signoutSuccess());
+        navigate('/sign-in');
       }
     } catch (error) {
       console.log(error);

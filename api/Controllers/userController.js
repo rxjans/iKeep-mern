@@ -117,3 +117,18 @@ export const deleteUserAdmin = async(req, res, next) => {
         next(error);
     }
 }
+
+export const validUser = async(req, res, next)=>{
+    try {
+        const user = await User.findById(req.user.id);
+    
+        if(req.user.id !== user._id.toString()){
+            res.clearCookie('access_token').status(200).json("User has been signed Out");
+        }else {
+            const validUser = true;
+            res.status(200).json(validUser);
+        }
+    } catch (error) {
+        next(error);
+    }
+}

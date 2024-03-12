@@ -41,6 +41,7 @@ function DashSidebar() {
           }
           else{
             dispatch(signoutSuccess());
+            navigate('/sign-in');
           }
         } catch (error) {
           console.log(error);
