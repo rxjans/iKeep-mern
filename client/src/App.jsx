@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminPostPrivateRoute from './components/AdminPostPrivateRoute';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
+import PostPage from './pages/PostPage';
 
 const App = () => {
   // const location = useLocation();
@@ -31,6 +32,7 @@ const App = () => {
 
         </Route>
         <Route path="/projects" element={<Projects />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
         <Route path='/about' element={<About />} />
       </Routes>
       {/* <Footer /> */}
