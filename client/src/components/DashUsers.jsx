@@ -5,7 +5,7 @@ import {BsPatchCheckFill} from 'react-icons/bs';
 import { RxCross2 } from "react-icons/rx";
 
 function DashUsers() {
-    const [users, setUsers] = useState({});
+    const [users, setUsers] = useState([]);
     const [totalUsers, setTotalUsers]= useState(null);
     const {currentUser} = useSelector((state)=> state.user);
     const [showMore, setShowMore] = useState(true);
@@ -36,13 +36,14 @@ function DashUsers() {
     useEffect(()=>{
         if(users.length == totalUsers){
           setShowMore(false);
+          console.log(users.length, totalUsers);
         }
       },[users])
 
     const handleShowMore = async()=>{
         const startIndex = users.length;
         try {
-            const res = await fetch(`/api/users/getusers?startIndex=${startIndex}`);
+            const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`);
             const data = await res.json();
             if(!res.ok){
                 console.log(data.message);
