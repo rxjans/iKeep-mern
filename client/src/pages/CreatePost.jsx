@@ -74,7 +74,7 @@ function CreatePost() {
                 navigate(`/post/${data.slug}`)
             }
         } catch (error) {
-            
+            console.log(error);
         }
     }
   return (
