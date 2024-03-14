@@ -104,7 +104,7 @@ function DashPosts() {
                     {userPosts.map((currElem, idx)=>{
                       return(
                       
-                        <tr class="odd:bg-gray-100 odd:dark:bg-[#23272a] even:bg-gray-50 even:dark:bg-transparent border-b dark:border-gray-700">
+                        <tr key={currElem._id} class="odd:bg-gray-100 odd:dark:bg-[#23272a] even:bg-gray-50 even:dark:bg-transparent border-b dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {new Date(currElem.updatedAt).toLocaleDateString()}
                             </th>

@@ -1,10 +1,13 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Comment from './Comment';
 
 function CommentSection({postId}) {
     const {currentUser} = useSelector((state)=>state.user);
     const [comment, setComment] = useState('');
+    const [comments, setComments] = useState([]);
+    const [commentError, setCommentError] = useState(null);
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -20,15 +23,37 @@ function CommentSection({postId}) {
             const data = await res.json();
             if(res.ok){
                 setComment('');
+                setCommentError(null);
+                setComments([data, ...comments])
             }
             if(!res.ok){
-                console.log(data.message);
+                setCommentError(data.message);
             }
         } catch (error) {
-            console.log(error);
+            setCommentError(error);
         }
         
     }
+
+    useEffect(()=>{
+        const fetchComments = async()=>{
+            try {
+                const res = await fetch(`/api/comment/getcomments/${postId}`);
+                const data = await res.json();
+                if(res.ok){
+                    setComments(data);
+                    setCommentError(null);
+                }
+                if(!res.ok){
+                    setCommentError(data.message);
+                }
+    
+            } catch (error) {
+                setCommentError(error);
+            }   
+        };   
+        fetchComments();
+    },[postId]);
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
@@ -56,7 +81,7 @@ function CommentSection({postId}) {
         }
         {
             currentUser &&
-            <form onSubmit={handleSubmit} className='mb-16'>
+            <form onSubmit={handleSubmit} className='mb-8'>
                 <textarea onChange={(e)=>setComment(e.target.value)} value={comment} maxlength="200" rows='4' className='no-scrollbar bg-transparent dark:focus:ring-slate-600 focus:ring-gray-200 border-2 border-gray-200 dark:border-gray-600 shadow-2xl outline-none w-full placeholder:dark:text-white/70 placeholder:text-gray-600 rounded-lg transition-all resize-none' type='text' placeholder='Write a comment..' name='comment'></textarea>
                 <div className='flex justify-between items-center mt-5 '>
                     <p className='text-xs italic'>{200 - comment.length} Characters remaining</p>
@@ -67,6 +92,40 @@ function CommentSection({postId}) {
                     </button>
                 </div>
             </form>
+        }
+        {
+            comments.length === 0 ? 
+            (
+                <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
+                <div className='flex-shrink-0 mr-3'>
+                    <img className='2-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600' src={currentUser.profilePicture} alt="user"  />
+                </div>
+                <div className='flex-1'>
+                    <div className='flex items-center mb-1'>
+                        <span className='font-bold mr-1 text-xs truncate'>{currentUser ? `@${currentUser.username}` : "Sign In"}</span>
+                    </div>
+                    <p className='text-gray-500 dark:text-gray-500 pb-2'>Be the first one to comment...</p>
+                </div>
+                </div>
+                )
+            :
+            (
+                <>
+                <div className='text-sm my-5 flex items-center gap-2'>
+                    <p>Comments</p>
+                    <div className='border border-gray-400 dark:border-gray-600 py-1 px-2 rounded-md'>
+                        <p>{comments.length}</p>
+                    </div>
+                </div>
+                {
+                    comments.map((currElem)=>{
+                        return(
+                            <Comment key={currElem._id} comment={currElem} />
+                        )
+                    })
+                }
+                </>
+            )
         }
     </div>
   )
