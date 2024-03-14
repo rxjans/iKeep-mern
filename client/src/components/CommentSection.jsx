@@ -8,6 +8,7 @@ function CommentSection({postId}) {
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
+        
     }
 
   return (
@@ -36,7 +37,7 @@ function CommentSection({postId}) {
         }
         {
             currentUser &&
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='mb-16'>
                 <textarea onChange={(e)=>setComment(e.target.value)} value={comment} maxlength="200" rows='4' className='no-scrollbar bg-transparent dark:focus:ring-slate-600 focus:ring-gray-200 border-2 border-gray-200 dark:border-gray-600 shadow-2xl outline-none w-full placeholder:dark:text-white/70 placeholder:text-gray-600 rounded-lg transition-all resize-none' type='text' placeholder='Write a comment..' name='comment'></textarea>
                 <div className='flex justify-between items-center mt-5 '>
                     <p className='text-xs italic'>{200 - comment.length} Characters remaining</p>
