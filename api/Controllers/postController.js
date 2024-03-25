@@ -1,5 +1,6 @@
 import Post from "../models/postModel.js";
 import User from "../models/userModel.js";
+import Comment from "../models/commentModel.js";
 import { errorHandler } from "../utils/errorHandler.js";
 
 export const create = async(req, res, next)=>{
@@ -75,6 +76,7 @@ export const deletepost = async(req,res,next)=> {
         return next(errorHandler(403, "User is not authorized to perform this action"));
     }
     try {
+        await Comment.deleteMany({postId: req.params.postId});
         await Post.findByIdAndDelete(req.params.postId);
         res.status(200).json("Post Successfully Deleted...");
     } catch (error) {
