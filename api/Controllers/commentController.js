@@ -50,3 +50,21 @@ export const likeComment = async(req, res, next) => {
         next(error);
     }
 }
+
+export const editComment = async(req, res, next) => {
+    try {
+        const comment = await Comment.findById(req.params.commentId);
+        if(!comment){
+            return next(errorHandler(404,"Comment not found..."));
+        }
+        if(comment.userId !== req.user.id){
+           return next(errorHandler(403, "You aren't allowed to perform this action"));
+        }
+        const updatedComment = await Comment.findByIdAndUpdate(req.params.commentId, {
+            content: req.body.content
+        }, {new: true});
+        res.status(200).json(updatedComment);
+    } catch (error) {
+        next(error);
+    }
+}
