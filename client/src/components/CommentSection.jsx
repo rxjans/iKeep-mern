@@ -7,6 +7,8 @@ function CommentSection({postId}) {
     const {currentUser} = useSelector((state)=>state.user);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
+    const [showModals, setShowModals] = useState(false);
+    const [commentToDelete, setCommentToDelete] = useState(null);
     const [commentError, setCommentError] = useState(null);
     const navigate = useNavigate();
 
@@ -93,9 +95,29 @@ function CommentSection({postId}) {
                 c
             ))           
         } catch (error) {
-            console.log(error);
+            setCommentError(error);
         }
     }
+
+    const handleDelete = async()=>{
+        try {
+            if(!currentUser){
+                navigate("/sign-in");
+                return;
+            }
+            const res = await fetch(`/api/comment/deletecomment/${commentToDelete}`,{
+                method: 'DELETE'
+            });
+            const data = await res.json();
+            if(res.ok){
+                setShowModals(false);
+                setComments(comments.filter((comment)=>commentToDelete !== comment._id));
+            }
+        } catch (error) {
+            setCommentError(error);
+        }
+    }
+
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
         {
@@ -161,12 +183,51 @@ function CommentSection({postId}) {
                 {
                     comments.map((currElem)=>{
                         return(
-                            <Comment key={currElem._id} comment={currElem} onLike={handleLike} onEdit={handleEdit}/>
+                            <Comment 
+                            key={currElem._id} 
+                            comment={currElem} 
+                            onLike={handleLike} 
+                            onEdit={handleEdit} 
+                            onDelete={(commentId)=>{
+                                setShowModals(true);
+                                setCommentToDelete(commentId);
+                            }}/>
                         )
                     })
                 }
                 </>
             )
+        }
+        {
+            showModals &&
+            <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" >     
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div className="bg-white dark:bg-[rgb(35,39,42)] px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div className="sm:flex sm:items-start">
+                            <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                            </div>
+                            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-200" id="modal-title">Delete comment</h3>
+                            <div className="mt-2">
+                                <p className="text-sm dark:text-gray-400 text-gray-500">Are you sure you want to delete this comment? This action cannot be undone.</p>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div className="dark:bg-[rgb(35,39,42)] px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button onClick={handleDelete} type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 dark:bg-red-800/90 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 dark:hover:bg-red-600/50 sm:ml-3 sm:w-auto">Delete</button>
+                        <button onClick={()=> setShowModals(false)} type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-gray-400 dark:text-gray-900 hover:dark:bg-gray-500 hover:bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  sm:mt-0 sm:w-auto">Cancel</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         }
     </div>
   )

@@ -2,7 +2,7 @@ import {React, useEffect, useState} from 'react'
 import moment from 'moment';
 import {FaThumbsUp} from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-function Comment({comment, onLike, onEdit}) {
+function Comment({comment, onLike, onEdit, onDelete}) {
     const [user, setUser] = useState({});
     const {currentUser} = useSelector(state => state.user);
     const [editing, setEditing] = useState(false);
@@ -86,8 +86,15 @@ function Comment({comment, onLike, onEdit}) {
             </p>
             {
               currentUser && (currentUser._id === comment.userId) && (
-                <button onClick={handleEdit} className='text-gray-500 hover:text-blue-500'>
+                <button onClick={handleEdit} className='text-gray-500 hover:text-blue-500 mr-2'>
                   Edit
+                </button>
+              )
+          }
+          {
+              currentUser && (currentUser.isAdmin || currentUser._id === comment.userId) && (
+                <button onClick={()=>onDelete(comment._id)} className='text-gray-500 hover:text-red-500'>
+                  Delete
                 </button>
               )
           }
