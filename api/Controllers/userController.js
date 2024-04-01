@@ -110,9 +110,10 @@ export const deleteUserAdmin = async(req, res, next) => {
         return next(errorHandler(401, "You are not allowed to delete this user"));
     }
     try { 
-       await Post.deleteMany({userId: req.params.userIdToDel});
-       await User.findByIdAndDelete(req.params.userIdToDel);
-       res.status(200).json("User has been deleted") ;
+        await Comment.deleteMany({userId: req.params.userIdToDel});
+        await Post.deleteMany({userId: req.params.userIdToDel});
+        await User.findByIdAndDelete(req.params.userIdToDel);
+        res.status(200).json("User has been deleted") ;
     } catch (error) {
         next(error);
     }
