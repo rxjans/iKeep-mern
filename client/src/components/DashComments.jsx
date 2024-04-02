@@ -120,7 +120,7 @@ function DashComments() {
                             <td class="px-6 py-4">
                                 {currElem.postId}
                             </td>
-                            <td class="px-6 py-4 flex ml-3 mt-3">
+                            <td class="px-6 py-4">
                                 {
                                     currElem.userId  
                                 }
