@@ -125,7 +125,7 @@ function CommentSection({postId}) {
             (
                 <div className='flex items-center gap-1 my-5 text-gray-500 text-sm'>
                     <p>Signed in as:</p>
-                    <img className='w-5 h-5 rounded-full' src={currentUser.profilePicture} alt="" />
+                    <img className='w-5 h-5 rounded-full' src={currentUser?.profilePicture} alt="" />
                     <Link to='/dashboard?tab=profile' className='text-xs text-cyan-600 hover:underline'>
                         @ {currentUser.username}
                     </Link>
@@ -157,11 +157,11 @@ function CommentSection({postId}) {
             </form>
         }
         {
-            comments.length === 0 ? 
+            comments.length === 0 && currentUser ? 
             (
                 <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
                 <div className='flex-shrink-0 mr-3'>
-                    <img className='2-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600' src={currentUser.profilePicture} alt="user"  />
+                    <img className='2-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600' src={currentUser?.profilePicture} alt="user"  />
                 </div>
                 <div className='flex-1'>
                     <div className='flex items-center mb-1'>
