@@ -146,7 +146,7 @@ function DashComments() {
             </div>
         </>) 
         : 
-        (<p>There are no users yet</p>)
+        (<p>There are no comments yet</p>)
       }
       {
       showModals &&

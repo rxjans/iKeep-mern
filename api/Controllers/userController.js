@@ -2,6 +2,7 @@ import { errorHandler } from "../utils/errorHandler.js";
 import User from "../models/userModel.js";
 import bcryptjs from 'bcryptjs';
 import Post from "../models/postModel.js";
+import Comment from "../models/commentModel.js";
 
 export default (req, res)=> {
     res.json({message: 'Api is Working!'})
