@@ -8,7 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 
-function Header () {
+function Header1 ({ isVisible }) {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const {theme} = useSelector(state => state.theme);
@@ -32,7 +32,7 @@ function Header () {
     }
   }
   return (
-    <nav className={`fixed top-0 z-50 w-full bg-white px-2 py-2.5 dark:border-b dark:border-black/20  dark:bg-[rgb(35,39,42)] sm:px-4 border-b-2 `}>
+    <nav className={`fixed top-0 z-50 w-full bg-white px-2 py-2.5 dark:border-b dark:border-black/20  dark:bg-[rgb(35,39,42)] sm:px-4 border-b-2 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className='mx-auto flex flex-wrap items-center justify-between container'>
         <Link to='/home'>
           <img src={logo1} className='w-[120px] h-[40px] '/>
@@ -112,7 +112,7 @@ function Header () {
   )
 }
 
-export default Header
+export default Header1
 
         {/* <Button classNameName='w-12 h-10 lg:hidden rounded-full' color='gray'>
           <AiOutlineSearch />
@@ -127,4 +127,6 @@ export default Header
             </Button>
           </Link>
         </div> */}
+
+
 
