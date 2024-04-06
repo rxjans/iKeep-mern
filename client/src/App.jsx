@@ -13,6 +13,7 @@ import AdminPostPrivateRoute from './components/AdminPostPrivateRoute';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
 import PostPage from './pages/PostPage';
+import Search from './pages/Search';
 
 const App = () => {
   // const location = useLocation();
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/projects" element={<Projects />} />
         <Route path="/post/:postSlug" element={<PostPage />} />
         <Route path='/about' element={<About />} />
+        <Route path='/search' element={<Search />} />
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>
