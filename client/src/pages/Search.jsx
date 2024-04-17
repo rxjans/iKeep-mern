@@ -27,7 +27,7 @@ export default function Search() {
             ...sidebarData,
             searchParams: searchParamsFromUrl,
             category: searchCategoryFromUrl,
-            sortDirection: searchSortFromUrl,
+            sortDirection: searchSortFromUrl
           })
         }
         const fetchPost=async()=>{
@@ -55,19 +55,22 @@ export default function Search() {
             setSidebarData({...sidebarData, searchParams: e.target.value });
         }
         if(e.target.id == 'category'){
-            const category = e.target.value || '';
+        
+            const category = e.target.value;
             setSidebarData({...sidebarData, category});
+           
         }
         if(e.target.id == 'sort'){
             const sorted= e.target.value || 'desc';
             setSidebarData({...sidebarData, sortDirection: sorted });
+        
         }
       }
       const handleSubmit=(e)=>{
         e.preventDefault();
         const urlParams= new URLSearchParams(location.search);
         urlParams.set('searchParams', sidebarData.searchParams );
-        urlParams.set('category', sidebarData.category );
+        urlParams.set('category', sidebarData.category);
         urlParams.set('sortDirection', sidebarData.sortDirection );
         const searchQuery= urlParams.toString();
         console.log(sidebarData);
@@ -109,7 +112,7 @@ export default function Search() {
                                         id="category"
                                         class="mt-2 block w-full text-slate-800 rounded-md border border-gray-200 px-2 py-2 lg:py-1 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                     >
-                                        <option  disabled selected hidden>Select a category...</option>
+                                        <option disabled selected hidden>Select a category...</option>
                                         <option value=''>All</option>
                                         <option value="Entertainment">Entertainment</option>
                                         <option value="Gaming">Gaming</option>
@@ -147,30 +150,29 @@ export default function Search() {
                     </div>
                 </form>
                 <div className="lg:ml-72 text-white flex-1 overflow-x-hidden pb-5 ">
-                   <div className="flex flex-col xl:flex-row lg:justify-between lg:px-24">
-                    
-                    {!loading && posts.length===0 &&(
-                        <div>
-                            <p className="text-center bg-white text-xl text-gray-500">
+                   
+                    <div className='flex flex-wrap gap-5 text-black dark:text-gray-200 justify-center'>
+                    {!loading && posts && posts.map((post)=>(
+                        <PostCard key={post._id} post={post} />
+                    ))}
+                    </div>
+           
+                   {!loading && posts.length===0 &&(
+                        <div className="text-center w-full">
+                            <p className="text-xl text-gray-500">
                                 No Post Found
                             </p>
                         </div>
                     )
                     }
                     {loading && (
-                        <div>
+                        <div className="text-center w-full">
                             <p className=" text-xl text-gray-500">
                                 Loading...
                             </p>
                         </div>
                     )
                     }
-                    <div className='flex flex-wrap gap-5 mt-5 justify-center w-screen'>
-                    {!loading && posts && posts.map((post)=>(
-                        <PostCard key={post._id} post={post} />
-                    ))}
-                    </div>
-                   </div>
                 </div>
             </div>
         </>
