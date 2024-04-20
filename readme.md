@@ -1,4 +1,5 @@
 # iKeep
+
 ## Description
 iKeep is an elegant and feature-rich blogging platform under active development. Crafted with the latest web technologies including React, Redux Toolkit, and JWT authentication, iKeep offers a seamless and secure user experience. Leveraging MongoDB as its database solution, iKeep ensures efficient data management and scalability.
 
