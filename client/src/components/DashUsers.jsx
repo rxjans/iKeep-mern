@@ -116,10 +116,8 @@ function DashUsers() {
                                   <img src={currElem.profilePicture} alt="user" className='w-10 h-10 object-cover bg-gray-500 rounded-full' />
                                 </Link>
                             </td>
-                            <td class="px-6 py-4">
-                              <Link className='font-medium dark:text-gray-400 text-black' to={`/post/${currElem.slug}`}>
-                                {currElem.username.length < 15 ? currElem.username : currElem.username.slice(0,15) + "..."}
-                              </Link>
+                            <td class="px-6 py-4 font-medium dark:text-gray-400 text-black">
+                                {currElem.username.length < 15 ? currElem.username : currElem.username.slice(0,15) + "..."}             
                             </td>
                             <td class="px-6 py-4">
                                 {currElem.email}
