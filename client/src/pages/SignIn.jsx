@@ -34,7 +34,7 @@ function SignIn() {
       }
       if(res.ok){
         dispatch(signInSuccess(data));
-        navigate('/dashboard');
+        navigate('/dashboard?tab=dash');
       }
     }
     catch(error){
