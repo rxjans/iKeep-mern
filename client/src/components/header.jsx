@@ -71,7 +71,7 @@ function Header () {
             </div>
           </div>
         </form>
-        <Button className='w-12 h-10 lg:hidden rounded-full dark:border-4 dark:bg-zinc-600 dark:border-zinc-700' color='gray'>
+        <Button onClick={()=> navigate('/home')} className='w-12 h-10 lg:hidden rounded-full dark:border-4 dark:bg-zinc-600 dark:border-zinc-700' color='gray'>
           <AiOutlineSearch />
         </Button>
         <div className='flex gap-4 md:order-2'>
