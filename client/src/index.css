@@ -19,8 +19,8 @@ body::-webkit-scrollbar {
 
 .quill {
     border-radius: 10px; /* Adjust the border-radius value to your preference */
-    border: 1px solid #0000; /* Optional: Add a border for better visibility */
-    padding: 10px; /* Optional: Add padding to the editor */
+    border: 1px solid #0000; /* Add a border for better visibility */
+    padding: 10px; /* Add padding to the editor */
   }
   
   /* Style the editor area */
@@ -140,7 +140,7 @@ select {
 
 /* Style for the list items */
 .post-content li {
-    font-size: 1rem; /* Optional: Adjust font size */
+    font-size: 1rem; /* Adjust font size */
 }
 
 .post-content h3{
