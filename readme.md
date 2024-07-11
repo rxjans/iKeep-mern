@@ -5,12 +5,6 @@ iKeep is an elegant and feature-rich blogging platform under active development.
 
 Live URL: https://ikeep-mern.onrender.com
 
-## To access admin features kindly use: 
-
-**username:** test@test.com 
-
-**password:** test  
-
 ## Features
 - Blogging Platform: Seamlessly create and manage blog posts.
 - User Authentication: Secure user authentication mechanism using JWT.
